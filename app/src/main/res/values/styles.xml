@@ -17,5 +17,44 @@
     </style>
 
 
+    <style name="ContentStyle" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/abc_input_method_navigation_guard</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+
+   <!-- <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/btn_green_selector"/>-->
+
+
+    <style name="NextButtonStyle" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:background">@drawable/btn_green_selector</item>
+        <item name="android:onClick">next</item>
+
+
+    </style>
+
+    <style name="PreviousButtonStyle" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:background">@drawable/btn_green_selector</item>
+        <item name="android:onClick">previous</item>
+
+
+    </style>
 
 </resources>

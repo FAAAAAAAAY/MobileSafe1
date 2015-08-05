@@ -5,4 +5,9 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_lost_find">LostFindActivity</string>
+    <string name="title_activity_setup1_acticity">Setup1Acticity</string>
+    <string name="title_activity_setip2">Setip2Activity</string>
+    <string name="title_activity_setip3">Setip3Activity</string>
+    <string name="title_activity_setup4">Setup4Activity</string>
 </resources>

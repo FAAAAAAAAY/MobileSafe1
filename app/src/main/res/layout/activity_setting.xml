@@ -16,7 +16,7 @@
     <com.example.yifei.mobilesafe.view.SettingItemView
         android:id="@+id/siv_update"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         yifei:title="自动更新设置"
         yifei:desc_on="自动更新开启"
         yifei:desc_off="自动更新关闭"/>
