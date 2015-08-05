@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yifei="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.yifei.mobilesafe.activity.SettingActivity"
+    android:orientation="vertical">
+
+
+    <!--设置中心总布局-->
+
+    <TextView
+        style="@style/TitleStyle"
+        android:text="设置中心"/>
+
+    <com.example.yifei.mobilesafe.view.SettingItemView
+        android:id="@+id/siv_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        yifei:title="自动更新设置"
+        yifei:desc_on="自动更新开启"
+        yifei:desc_off="自动更新关闭"/>
+
+    
+</LinearLayout>

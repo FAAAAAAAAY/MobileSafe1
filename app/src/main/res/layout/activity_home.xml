@@ -6,14 +6,9 @@
     android:weightSum="1">
 
     <TextView
-        android:id="@+id/textview1"
+        style="@style/TitleStyle"
         android:text="功能列表"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textColor="@color/abc_primary_text_material_light"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:background="@color/abc_search_url_text_normal"
+
         />
 
     <com.example.yifei.mobilesafe.view.FocusedTextView

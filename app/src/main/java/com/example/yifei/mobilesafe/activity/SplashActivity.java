@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -14,6 +15,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +40,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
+/*
+* 读取界面
+* */
+
 public class SplashActivity extends Activity {
 
     private static final int CODE_UPDATE_DIALOG = 0;
@@ -47,6 +54,7 @@ public class SplashActivity extends Activity {
 
     private TextView tvVersion;
     private TextView tvProgress;
+    private SharedPreferences mPref;
 
     /*
     * 服务器传回的数据
@@ -55,6 +63,8 @@ public class SplashActivity extends Activity {
     private int mVersionCode;//获取到的最新版本号
     private String mDescription;//获取到的最新版本描述
     private String mDownloadUrl;//获取到的最新下载链接
+    private RelativeLayout rlRoot;
+
 
     private Handler mHandler = new Handler() {
         @Override
@@ -84,6 +94,8 @@ public class SplashActivity extends Activity {
         }
     };
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +104,20 @@ public class SplashActivity extends Activity {
         tvProgress = (TextView) findViewById(R.id.tv_progress);
         String versionName = getVersionName();
         tvVersion.setText("版本号：" + versionName);
-        checkVersion();
+        rlRoot = (RelativeLayout) findViewById(R.id.rl_root);
+        mPref = getSharedPreferences("config",MODE_PRIVATE);
+        boolean autoUpdate = mPref.getBoolean("auto_update",true);
+        if (autoUpdate){
+            checkVersion();
+        }else {
+            mHandler.sendEmptyMessageDelayed(CODE_ENTER_HOME,3000);
+        }
+
+
+        AlphaAnimation anim = new AlphaAnimation(0.3f,1);
+        anim.setDuration(2000);
+        rlRoot.startAnimation(anim);
+
     }
 
     /*
