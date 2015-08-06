@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.example.yifei.mobilesafe.R;
 
-public class Setup3Activity extends Activity {
+public class Setup3Activity extends BaseSetupActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,17 +18,19 @@ public class Setup3Activity extends Activity {
         setContentView(R.layout.activity_setip3);
     }
 
+    @Override
+    public void showPrevious() {
+        startActivity(new Intent(Setup3Activity.this, Setup2Activity.class));
+        finish();
+        overridePendingTransition(R.anim.previous_in, R.anim.previous_out);
+    }
 
-    public void next(View view){
-        startActivity(new Intent(Setup3Activity.this,Setup4Activity.class));
+    @Override
+    public void showNext() {
+        startActivity(new Intent(Setup3Activity.this, Setup4Activity.class));
         finish();
         overridePendingTransition(R.anim.trans_in, R.anim.trans_out);
     }
 
 
-    public void previous(View view){
-        startActivity(new Intent(Setup3Activity.this,Setup2Activity.class));
-        finish();
-        overridePendingTransition(R.anim.previous_in, R.anim.previous_out);
-    }
 }
