@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.yifei.mobilesafe.R;
 import com.example.yifei.mobilesafe.view.SettingItemView;
@@ -62,9 +63,15 @@ public class Setup2Activity extends BaseSetupActivity {
 
     @Override
     public void showNext() {
-        startActivity(new Intent(Setup2Activity.this, Setup3Activity.class));
-        finish();
-        overridePendingTransition(R.anim.trans_in, R.anim.trans_out);
+        String sim = mPref.getString("simSerialNumber",null);
+        if (!TextUtils.isEmpty(sim)){
+            startActivity(new Intent(Setup2Activity.this, Setup3Activity.class));
+            finish();
+            overridePendingTransition(R.anim.trans_in, R.anim.trans_out);
+        }else {
+            Toast.makeText(this,"请点击绑定sim卡.再进入下一步",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

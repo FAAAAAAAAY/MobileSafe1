@@ -11,4 +11,5 @@
     <string name="title_activity_setip3">Setip3Activity</string>
     <string name="title_activity_setup4">Setup4Activity</string>
     <string name="title_activity_base_setup">BaseSetupActivity</string>
+    <string name="title_activity_contact">ContactActivity</string>
 </resources>

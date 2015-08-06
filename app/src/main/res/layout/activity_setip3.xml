@@ -21,13 +21,15 @@
         android:id="@+id/et_safeNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="phone"
         android:hint="请输入或选择安全号码" />
 
     <Button
         android:id="@+id/btn_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="选择联系人" />
+        android:text="选择联系人"
+        android:onClick="readContact"/>
 
     <LinearLayout
         android:layout_width="match_parent"
