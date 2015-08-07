@@ -21,5 +21,13 @@
         yifei:desc_on="自动更新开启"
         yifei:desc_off="自动更新关闭"/>
 
-    
+    <com.example.yifei.mobilesafe.view.SettingItemView
+        android:id="@+id/siv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        yifei:title="电话归属地显示"
+        yifei:desc_on="电话归属地显示开启"
+        yifei:desc_off="电话归属地显示关闭"/>
+
+
 </LinearLayout>

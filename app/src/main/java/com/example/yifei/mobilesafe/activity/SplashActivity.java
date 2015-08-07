@@ -95,7 +95,6 @@ public class SplashActivity extends Activity {
     };
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,16 +104,17 @@ public class SplashActivity extends Activity {
         String versionName = getVersionName();
         tvVersion.setText("版本号：" + versionName);
         rlRoot = (RelativeLayout) findViewById(R.id.rl_root);
-        mPref = getSharedPreferences("config",MODE_PRIVATE);
-        boolean autoUpdate = mPref.getBoolean("auto_update",true);
-        if (autoUpdate){
+        mPref = getSharedPreferences("config", MODE_PRIVATE);
+        boolean autoUpdate = mPref.getBoolean("auto_update", true);
+        coptDB("address.db");
+        if (autoUpdate) {
             checkVersion();
-        }else {
-            mHandler.sendEmptyMessageDelayed(CODE_ENTER_HOME,3000);
+        } else {
+            mHandler.sendEmptyMessageDelayed(CODE_ENTER_HOME, 3000);
         }
 
 
-        AlphaAnimation anim = new AlphaAnimation(0.3f,1);
+        AlphaAnimation anim = new AlphaAnimation(0.3f, 1);
         anim.setDuration(2000);
         rlRoot.startAnimation(anim);
 
@@ -302,5 +302,39 @@ public class SplashActivity extends Activity {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();
+    }
+
+
+    private void coptDB(String dbName) {
+        /*File fileDir= getFilesDir();
+        System.out.println(fileDir.getAbsolutePath());*/
+
+
+        File destFile = new File(getFilesDir(), dbName);
+        if (destFile.exists()){
+            return;
+        }
+        FileOutputStream out = null;
+        InputStream in = null;
+        try {
+            in = getAssets().open(dbName);
+            out = new FileOutputStream(destFile);
+            int len = 0;
+            byte[] b = new byte[1024];
+            while ((len = in.read(b)) != -1) {
+                out.write(b, 0, len);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                in.close();
+                out.close();
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

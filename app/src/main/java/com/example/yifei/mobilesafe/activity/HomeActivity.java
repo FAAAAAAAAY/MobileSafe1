@@ -44,7 +44,7 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mPref = getSharedPreferences("config",MODE_PRIVATE);
+        mPref = getSharedPreferences("config", MODE_PRIVATE);
 
         gvHome = (GridView) findViewById(R.id.gv_home);
         gvHome.setAdapter(new HomeAdapter());
@@ -53,15 +53,20 @@ public class HomeActivity extends Activity {
         gvHome.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
+                switch (position) {
+                    //高级工具
+                    case 7:
+                        startActivity(new Intent(HomeActivity.this,AToolsActivity.class));
+                        break;
+
+
                     //设置中心
                     case 8:
-                    startActivity(new Intent(HomeActivity.this,SettingActivity.class));
+                        startActivity(new Intent(HomeActivity.this, SettingActivity.class));
                         break;
 
                     //手机防盗
                     case 0:
-
                         showPasswordDialog();
                         break;
 
@@ -74,25 +79,22 @@ public class HomeActivity extends Activity {
     }
 
 
-
     //显示密码弹窗
     private void showPasswordDialog() {
         //判断是否已经设置过密码
         String savedPassword = mPref.getString("password", null);
-        if (!TextUtils.isEmpty(savedPassword)){
+        if (!TextUtils.isEmpty(savedPassword)) {
             showInputDialog();
-        }else {
+        } else {
             showPasswordSetDialog();
         }
-
-
 
 
     }
 
     private void showInputDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final AlertDialog dialog  = builder.create();
+        final AlertDialog dialog = builder.create();
 
         View view = View.inflate(this, R.layout.dialog_input_password, null);
         dialog.setView(view);
@@ -108,18 +110,18 @@ public class HomeActivity extends Activity {
             public void onClick(View v) {
                 String password = etPassword.getText().toString();
 
-                if (!TextUtils.isEmpty(password)){
-                    String savedPassword = mPref.getString("password",null);
-                    if (MD5Utils.encode(password).equals(savedPassword)){
-                        Toast.makeText(HomeActivity.this,"登陆成功!!",Toast.LENGTH_SHORT).show();
+                if (!TextUtils.isEmpty(password)) {
+                    String savedPassword = mPref.getString("password", null);
+                    if (MD5Utils.encode(password).equals(savedPassword)) {
+                        Toast.makeText(HomeActivity.this, "登陆成功!!", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
-                        startActivity(new Intent(HomeActivity.this,LostFindActivity.class));
-                    }else {
-                        Toast.makeText(HomeActivity.this,"密码错误!!",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(HomeActivity.this, LostFindActivity.class));
+                    } else {
+                        Toast.makeText(HomeActivity.this, "密码错误!!", Toast.LENGTH_SHORT).show();
 
                     }
-                }else{
-                    Toast.makeText(HomeActivity.this,"密码不能为空!!",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(HomeActivity.this, "密码不能为空!!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -144,7 +146,7 @@ public class HomeActivity extends Activity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final AlertDialog dialog = builder.create();
 
-        View view = View.inflate(this,R.layout.dialog_set_password,null);
+        View view = View.inflate(this, R.layout.dialog_set_password, null);
         dialog.setView(view);
 
         final EditText etPassword = (EditText) view.findViewById(R.id.et_password);
@@ -158,20 +160,20 @@ public class HomeActivity extends Activity {
             public void onClick(View v) {
                 String password = etPassword.getText().toString();
                 String passworfConfirm = etPasswordConfirm.getText().toString();
-                if (!TextUtils.isEmpty(password) && !TextUtils.isEmpty(passworfConfirm)){
-                    if (password.equals(passworfConfirm)){
-                        Toast.makeText(HomeActivity.this,"登录成功!!",Toast.LENGTH_SHORT).show();
+                if (!TextUtils.isEmpty(password) && !TextUtils.isEmpty(passworfConfirm)) {
+                    if (password.equals(passworfConfirm)) {
+                        Toast.makeText(HomeActivity.this, "登录成功!!", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
 
                         //登录成功,将密码写入数据库
                         mPref.edit().putString("password", MD5Utils.encode(password)).apply();
 
                         startActivity(new Intent(HomeActivity.this, LostFindActivity.class));
-                    }else {
-                        Toast.makeText(HomeActivity.this,"两次输入不一致!!",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(HomeActivity.this, "两次输入不一致!!", Toast.LENGTH_SHORT).show();
                     }
-                }else {
-                    Toast.makeText(HomeActivity.this,"输入框不能为空!!",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(HomeActivity.this, "输入框不能为空!!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

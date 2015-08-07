@@ -57,4 +57,32 @@
 
     </style>
 
+
+
+    <!--<TextView
+        android:text="电话归属地查询"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:textSize="25dp
+        android:textColor="@android:color/black"
+        android:background="@drawable/gradient_box"
+        android:drawableLeft="@android:drawable/btn_plus"
+        android:gravity="center_vertical"/>-->
+
+    <style name="AToolsContent" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/gradient_box</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:drawableLeft">@android:drawable/btn_plus</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@android:color/black</item>
+
+
+
+    </style>
+
+
 </resources>
