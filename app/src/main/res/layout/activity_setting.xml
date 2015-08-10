@@ -29,5 +29,17 @@
         yifei:desc_on="电话归属地显示开启"
         yifei:desc_off="电话归属地显示关闭"/>
 
+    <com.example.yifei.mobilesafe.view.SettingClickView
+        android:id="@+id/siv_address_style"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        />
+
+    <com.example.yifei.mobilesafe.view.SettingClickView
+        android:id="@+id/siv_address_location"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        />
+
 
 </LinearLayout>

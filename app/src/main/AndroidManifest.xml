@@ -12,7 +12,8 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
         android:allowBackup="true"
@@ -90,6 +91,11 @@
             android:exported="true" >
         </service>
 
+        <activity
+            android:name=".activity.DragViewActivity"
+            android:label="@string/title_activity_drag_view"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
     </application>
 
 </manifest>
