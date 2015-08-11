@@ -59,6 +59,10 @@ public class HomeActivity extends Activity {
                         startActivity(new Intent(HomeActivity.this,AToolsActivity.class));
                         break;
 
+                    case 1:
+                        startActivity(new Intent(HomeActivity.this,CallSafeActivity2.class));
+                        break;
+
 
                     //设置中心
                     case 8:

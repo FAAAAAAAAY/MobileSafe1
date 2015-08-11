@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:allowBackup="true"
@@ -94,8 +94,25 @@
         <activity
             android:name=".activity.DragViewActivity"
             android:label="@string/title_activity_drag_view"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
+        <activity
+            android:name=".activity.CallSafeActivity"
+            android:label="@string/title_activity_call_safe" >
+        </activity>
+        <activity
+            android:name=".activity.CallSafeActivity2"
+            android:label="@string/title_activity_call_safe" >
+        </activity>
+
+        <service
+            android:name=".service.CallSafeService"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

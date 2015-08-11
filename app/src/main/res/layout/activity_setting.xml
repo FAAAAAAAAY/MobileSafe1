@@ -42,4 +42,12 @@
         />
 
 
+    <com.example.yifei.mobilesafe.view.SettingItemView
+        android:id="@+id/siv_call_safe"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        yifei:title="黑名单设置(4.4以上无效)"
+        yifei:desc_on="黑名单拦截开启"
+        yifei:desc_off="黑名单拦截关闭"/>
+
 </LinearLayout>

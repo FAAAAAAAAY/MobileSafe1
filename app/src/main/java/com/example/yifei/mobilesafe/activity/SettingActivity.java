@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.yifei.mobilesafe.R;
 import com.example.yifei.mobilesafe.service.AddressService;
+import com.example.yifei.mobilesafe.service.CallSafeService;
 import com.example.yifei.mobilesafe.utils.ServiceStatusUtils;
 import com.example.yifei.mobilesafe.view.SettingClickView;
 import com.example.yifei.mobilesafe.view.SettingItemView;
@@ -26,6 +27,7 @@ public class SettingActivity extends Activity {
     private SettingItemView sivAddress;
     private SettingClickView scvAddressStyle;
     private SettingClickView scvAddressLocation;
+    private SettingItemView sivBlack;
     private SharedPreferences mPref;
     private String[] items = new String[] {"半透明","活力橙","卫士蓝","金属灰","苹果绿"};;
 
@@ -36,13 +38,17 @@ public class SettingActivity extends Activity {
         mPref = getSharedPreferences("config", MODE_PRIVATE);
         sivUpdate = (SettingItemView) findViewById(R.id.siv_update);
         sivAddress = (SettingItemView) findViewById(R.id.siv_address);
+        sivBlack = (SettingItemView) findViewById(R.id.siv_call_safe);
 
         autoUpdate();
         showAddress();
         initAddressStyle();
         initAddressLocation();
+        initBlackNumber();
 
     }
+
+
 
 
     private void showAddress() {
@@ -91,7 +97,7 @@ public class SettingActivity extends Activity {
     }
 
     private void initAddressStyle(){
-        int which = mPref.getInt("addressStyle",0);
+        int which = mPref.getInt("addressStyle", 0);
         String desc = items[which];
         scvAddressStyle= (SettingClickView) findViewById(R.id.siv_address_style);
         scvAddressStyle.setTitle("归属地提示框风格");
@@ -112,7 +118,7 @@ public class SettingActivity extends Activity {
         builder.setSingleChoiceItems(items, which, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mPref.edit().putInt("addressStyle",which).apply();
+                mPref.edit().putInt("addressStyle", which).apply();
                 dialog.dismiss();
                 scvAddressStyle.setDesc(items[which]);
             }
@@ -132,7 +138,29 @@ public class SettingActivity extends Activity {
         scvAddressLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SettingActivity.this,DragViewActivity.class));
+                startActivity(new Intent(SettingActivity.this, DragViewActivity.class));
+            }
+        });
+    }
+
+    private void initBlackNumber() {
+        boolean callSafe = ServiceStatusUtils.isServiceRunning(this, "com.example.yifei.mobilesafe.service.CallSafeService");
+
+        if (callSafe) {
+            sivBlack.setChecked(true);
+        } else {
+            sivBlack.setChecked(false);
+        }
+        sivBlack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (sivBlack.isChecked()) {
+                    sivBlack.setChecked(false);
+                    stopService(new Intent(SettingActivity.this, CallSafeService.class));
+                } else {
+                    sivBlack.setChecked(true);
+                    startService(new Intent(SettingActivity.this, CallSafeService.class));
+                }
             }
         });
     }
