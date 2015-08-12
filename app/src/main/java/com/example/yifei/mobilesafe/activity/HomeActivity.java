@@ -56,14 +56,16 @@ public class HomeActivity extends Activity {
                 switch (position) {
                     //高级工具
                     case 7:
-                        startActivity(new Intent(HomeActivity.this,AToolsActivity.class));
+                        startActivity(new Intent(HomeActivity.this, AToolsActivity.class));
                         break;
 
                     case 1:
-                        startActivity(new Intent(HomeActivity.this,CallSafeActivity2.class));
+                        startActivity(new Intent(HomeActivity.this, CallSafeActivity2.class));
                         break;
 
-
+                    case 2:
+                        startActivity(new Intent(HomeActivity.this, AppManagerActivity.class));
+                        break;
                     //设置中心
                     case 8:
                         startActivity(new Intent(HomeActivity.this, SettingActivity.class));
