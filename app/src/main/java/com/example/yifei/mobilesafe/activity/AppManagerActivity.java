@@ -1,8 +1,10 @@
 package com.example.yifei.mobilesafe.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -25,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yifei.mobilesafe.R;
 import com.example.yifei.mobilesafe.bean.AppInfo;
@@ -35,7 +38,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppManagerActivity extends Activity {
+public class AppManagerActivity extends Activity implements View.OnClickListener {
     private ListView listView;
     private TextView tvRom;
     private TextView tvSd;
@@ -45,6 +48,10 @@ public class AppManagerActivity extends Activity {
     private List<AppInfo> systemApp;
     private TextView tvApp;
     private PopupWindow popupWindow;
+    private AppInfo onClickAppInfo;
+    private LinearLayout llDelete;
+    private LinearLayout llRun;
+    private LinearLayout llDetail;
 
 
     @Override
@@ -99,7 +106,18 @@ public class AppManagerActivity extends Activity {
                     popUpWindowDismiss();
                     Object obj = listView.getItemAtPosition(position);
                     if (obj instanceof AppInfo && obj != null) {
+                        onClickAppInfo = (AppInfo) obj;
                         View contentView = View.inflate(AppManagerActivity.this, R.layout.popup_app_manager, null);
+
+                        llDelete = (LinearLayout) contentView.findViewById(R.id.ll_delete);
+                        llRun = (LinearLayout) contentView.findViewById(R.id.ll_run);
+                        llDetail = (LinearLayout) contentView.findViewById(R.id.ll_detail);
+
+
+                        llDelete.setOnClickListener(AppManagerActivity.this);
+                        llRun.setOnClickListener(AppManagerActivity.this);
+                        llDetail.setOnClickListener(AppManagerActivity.this);
+
                         popupWindow = new PopupWindow(contentView, -2, -2);
                         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         int[] ints = new int[2];
@@ -140,6 +158,49 @@ public class AppManagerActivity extends Activity {
             }
         }).start();
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ll_delete:
+                Intent intent = new Intent("android.intent.action.DELETE", Uri.parse("package:"+onClickAppInfo.getApkPackageName()));
+                startActivityForResult(intent,0);
+                popUpWindowDismiss();
+                break;
+            case R.id.ll_run:
+                Intent intent1 = getPackageManager().getLaunchIntentForPackage(onClickAppInfo.getApkPackageName());
+                System.out.println(onClickAppInfo.getApkPackageName());
+                if (intent1 == null){
+                    Toast.makeText(AppManagerActivity.this, "无法启动", Toast.LENGTH_SHORT).show();
+                }else{
+                    startActivity(intent1);
+                }
+                popUpWindowDismiss();
+                break;
+            case R.id.ll_detail:
+                Intent intent2 = new Intent();
+                intent2.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                intent2.addCategory(Intent.CATEGORY_DEFAULT);
+                intent2.setData(Uri.parse("package:"+onClickAppInfo.getApkPackageName()));
+                startActivity(intent2);
+                popUpWindowDismiss();
+                break;
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case 0:
+                initUI();
+                initData();
+                break;
+            default:
+                break;
+        }
     }
 
     private class AppManagerAdapter extends BaseAdapter {
