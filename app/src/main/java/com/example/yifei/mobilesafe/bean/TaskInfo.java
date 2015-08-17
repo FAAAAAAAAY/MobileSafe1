@@ -12,6 +12,16 @@ public class TaskInfo {
     private long taskSize;
     private boolean isUserApp;
 
+    public long getTaskMemory() {
+        return taskMemory;
+    }
+
+    public void setTaskMemory(long taskMemory) {
+        this.taskMemory = taskMemory;
+    }
+
+    private long taskMemory;
+
     public String getTaskName() {
         return taskName;
     }

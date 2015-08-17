@@ -6,6 +6,8 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.os.Debug;
+import android.text.StaticLayout;
 
 import com.example.yifei.mobilesafe.bean.TaskInfo;
 
@@ -30,6 +32,11 @@ public class TaskInfos {
             TaskInfo taskInfo = new TaskInfo();
             String processName = processInfo.processName;
             taskInfo.setPackageName(processName);
+            Debug.MemoryInfo[] taskMemorys = activityManager.getProcessMemoryInfo(new int[]{processInfo.pid});
+            Debug.MemoryInfo memoryInfo = taskMemorys[0];
+            long taskMemory = memoryInfo.getTotalPss();
+            taskInfo.setTaskMemory(taskMemory);
+
             try {
                 PackageInfo packageInfo = packageManager.getPackageInfo(processName, 0);
                 Drawable icon = packageInfo.applicationInfo.loadIcon(packageManager);
@@ -54,6 +61,11 @@ public class TaskInfos {
         }
 
         return list;
+    }
+
+    public static void killTasks(String packageName,Context context){
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        activityManager.killBackgroundProcesses(packageName);
     }
 
 }
